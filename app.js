@@ -6,7 +6,7 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var auth         = require('./routes/auth');
 var users        = require('./routes/users');
-var cors         = require('cors');
+var cors         = require('cors')();
 var offers       = require('./routes/offers');
 var messages       = require('./routes/messages');
 var events         = require('./routes/events');
@@ -24,14 +24,16 @@ var index = require('./routes/index');
 
 var app = express();
 
-var corsOptions = {credentials: true, origin: 'http://localhost:4200'};
+// var corsOptions = {credentials: true, origin: 'http://localhost:4200'};
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
 
-app.options('*', cors(corsOptions));
-app.use(cors(corsOptions));
+
+app.use(cors);
+app.options('*', cors);
+
 app.use(passport.initialize());
 // uncomment after placing your favicon in /public
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
